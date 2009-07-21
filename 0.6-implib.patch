@@ -1,0 +1,88 @@
+--- origsrc/xmms2-0.6DrMattDestruction/src/clients/lib/xmmsclient/wscript	2009-04-21 12:51:11.000000000 -0500
++++ src/xmms2-0.6DrMattDestruction/src/clients/lib/xmmsclient/wscript	2009-07-19 23:02:13.441328500 -0500
+@@ -2,7 +2,7 @@ from waftools import tool
+ from logging import warning
+ 
+ def build(bld):
+-    obj = bld.new_task_gen("cc", "shlib")
++    obj = bld.new_task_gen("cc", "shlib", "implib")
+     obj.target = "xmmsclient"
+     obj.includes = "../../../.. ../../../include ../../../includepriv"
+     obj.source = """
+--- origsrc/xmms2-0.6DrMattDestruction/src/clients/lib/xmmsclient++/wscript	2009-04-21 12:51:11.000000000 -0500
++++ src/xmms2-0.6DrMattDestruction/src/clients/lib/xmmsclient++/wscript	2009-07-19 23:03:31.252517400 -0500
+@@ -2,7 +2,7 @@ import os
+ from waftools import tool
+ 
+ def build(bld):
+-    obj = bld.new_task_gen('cxx', 'shlib')
++    obj = bld.new_task_gen('cxx', 'shlib', 'implib')
+     obj.target = 'xmmsclient++'
+     obj.includes = '../../../.. ../../../include ../../../includepriv'
+     obj.source = """
+--- origsrc/xmms2-0.6DrMattDestruction/src/clients/lib/xmmsclient++-glib/wscript	2009-04-21 12:51:11.000000000 -0500
++++ src/xmms2-0.6DrMattDestruction/src/clients/lib/xmmsclient++-glib/wscript	2009-07-19 23:03:19.452337100 -0500
+@@ -1,6 +1,6 @@
+ from waftools import tool
+ def build(bld):
+-    lib = bld.new_task_gen('cxx', 'shlib')
++    lib = bld.new_task_gen('cxx', 'shlib', 'implib')
+     lib.target = 'xmmsclient++-glib'
+     lib.source = 'xmmsclient++-glib.cpp'
+     lib.uselib = 'glib2'
+--- origsrc/xmms2-0.6DrMattDestruction/src/clients/lib/xmmsclient-ecore/wscript	2009-04-21 12:51:11.000000000 -0500
++++ src/xmms2-0.6DrMattDestruction/src/clients/lib/xmmsclient-ecore/wscript	2009-07-19 23:03:42.308936400 -0500
+@@ -1,7 +1,7 @@
+ from waftools import tool
+ 
+ def build(bld):
+-    obj = bld.new_task_gen('cc', 'shlib')
++    obj = bld.new_task_gen('cc', 'shlib', 'implib')
+     obj.target = 'xmmsclient-ecore'
+     obj.includes = '../../../.. ../../../include'
+     obj.source = 'xmmsclient-ecore.c'
+--- origsrc/xmms2-0.6DrMattDestruction/src/clients/lib/xmmsclient-glib/wscript	2009-04-21 12:51:11.000000000 -0500
++++ src/xmms2-0.6DrMattDestruction/src/clients/lib/xmmsclient-glib/wscript	2009-07-19 23:02:53.223186400 -0500
+@@ -1,7 +1,7 @@
+ from waftools import tool
+ 
+ def build(bld):
+-    obj = bld.new_task_gen('cc', 'shlib')
++    obj = bld.new_task_gen('cc', 'shlib', 'implib')
+     obj.target = 'xmmsclient-glib'
+     obj.includes = '../../../.. ../../../include'
+     obj.source = 'xmmsclient-glib.c'
+--- origsrc/xmms2-0.6DrMattDestruction/src/xmms/wscript	2009-04-21 12:51:11.000000000 -0500
++++ src/xmms2-0.6DrMattDestruction/src/xmms/wscript	2009-07-19 23:02:13.452578700 -0500
+@@ -61,7 +61,7 @@ def build(bld):
+         source.append("visualization/dummy.c")
+ 
+     if env['xmms_shared_library']:
+-        lib = bld.new_task_gen('cc', 'shlib')
++        lib = bld.new_task_gen('cc', 'shlib', 'implib')
+         lib.target = 'xmms2core'
+         lib.source = source
+         lib.includes = '. ../include ../includepriv'
+@@ -118,10 +118,12 @@ def configure(conf):
+         conf.env['LINKFLAGS'] += ['-framework', 'CoreFoundation']
+         conf.env['CCDEFINES'] += ['USE_BUNDLES']
+ 
+-    if Options.platform == 'win32':
++    if Options.platform == 'win32' or Options.platform == 'cygwin':
+         conf.env['xmms_shared_library'] = True
++        conf.env.append_value('XMMS_PKGCONF_FILES', ('xmms2-plugin', '-lxmms2core'))
+     else:
+         conf.env['xmms_shared_library'] = False
++        conf.env.append_value('XMMS_PKGCONF_FILES', ('xmms2-plugin', ''))
+ 
+     if Options.platform == 'win32':
+         conf.env['compat_impl'] = 'dummy'
+@@ -137,8 +139,6 @@ def configure(conf):
+     if not conf.env['HAVE_SEMCTL']:
+         warning("Compiling visualization without shm support")
+ 
+-    conf.env.append_value('XMMS_PKGCONF_FILES', ('xmms2-plugin', ''))
+-
+     conf.check_cfg(package='valgrind', uselib_store='valgrind', args='--cflags')
+ 
+     return True

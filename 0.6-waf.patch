@@ -1,0 +1,54 @@
+With waf trunk, the sub-configures report failure even where they actually
+succeed.  So we just enable the optionals that work and force their
+acceptance.
+
+--- origsrc/xmms2-0.6DrMattDestruction/src/include/xmms/wscript	2009-04-21 12:51:11.000000000 -0500
++++ src/xmms2-0.6DrMattDestruction/src/include/xmms/wscript	2009-07-19 23:02:13.445078600 -0500
+@@ -58,7 +58,7 @@ def configure(conf):
+ 
+     for i in defs:
+         conf.define(i, defs[i])
+-    conf.write_config_header('xmms_configuration.h')
++    conf.write_config_header('../xmms_configuration.h')
+ 
+     sys.stdout.write("\nDefault output plugin: ")
+     Utils.pprint('BLUE', conf.env["XMMS_DEFS"]['XMMS_OUTPUT_DEFAULT'])
+--- origsrc/xmms2-0.6DrMattDestruction/wscript	2009-04-21 12:51:11.000000000 -0500
++++ src/xmms2-0.6DrMattDestruction/wscript	2009-07-19 23:02:13.455078700 -0500
+@@ -146,11 +146,11 @@ def _configure_optionals(conf):
+ 
+     for o in selected_optionals:
+         x = [x for x in optional_subdirs if os.path.basename(x) == o][0]
+-        if conf.sub_config(x):
+-            conf.env.append_value('XMMS_OPTIONAL_BUILD', x)
+-            succeeded_optionals.add(o)
+-        else:
+-            failed_optionals.add(o)
++        conf.sub_config(x)
++        conf.env.append_value('XMMS_OPTIONAL_BUILD', x)
++        succeeded_optionals.add(o)
++#        else:
++#            failed_optionals.add(o)
+ 
+     if optionals_must_work and failed_optionals:
+         fatal("The following required optional(s) failed to configure: "
+@@ -278,8 +278,8 @@ def configure(conf):
+         conf.check_message("uncommitted changes", "", bool(changed))
+         conf.env["VERSION"] = BASEVERSION + " (git commit: %s%s)" % (nam, dirty)
+ 
+-    conf.env["CCFLAGS"] = Utils.to_list(conf.env["CCFLAGS"]) + ['-g', '-O0']
+-    conf.env["CXXFLAGS"] = Utils.to_list(conf.env["CXXFLAGS"]) + ['-g', '-O0']
++#    conf.env["CCFLAGS"] = Utils.to_list(conf.env["CCFLAGS"]) + ['-g', '-O0']
++#    conf.env["CXXFLAGS"] = Utils.to_list(conf.env["CXXFLAGS"]) + ['-g', '-O0']
+     conf.env['XMMS_PKGCONF_FILES'] = []
+     conf.env['XMMS_OUTPUT_PLUGINS'] = [(-1, "NONE")]
+ 
+@@ -308,7 +308,7 @@ def configure(conf):
+ 
+     # Our static libraries may link to dynamic libraries
+     if Options.platform != 'win32':
+-        conf.env["staticlib_CCFLAGS"] += ['-fPIC', '-DPIC']
++        conf.env["staticlib_CCFLAGS"] += conf.env["shlib_CCFLAGS"]
+     else:
+         # As we have to change target platform after the tools
+         # have been loaded there are a few variables that needs

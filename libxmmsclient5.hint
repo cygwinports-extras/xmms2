@@ -1,0 +1,7 @@
+category: Audio
+requires: libgcc1 xmms2-daemon
+external-source: xmms2
+sdesc: "XMMS2 audio player C client library (runtime)"
+ldesc: "XMMS2 is an audio player with a client-server design. It has
+a modular framework and plugin architecture for audio processing,
+visualisation and output."

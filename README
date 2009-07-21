@@ -1,0 +1,312 @@
+xmms2
+------------------------------------------
+XMMS2 is an audio player with a client-server design. It has 
+a modular framework and plugin architecture for audio processing, 
+visualisation and output.
+
+Runtime requirements:
+  cygwin-1.7.0-51
+  gvfs-1.2.3-1
+  libao2-0.8.8-1
+  libavcodec52-0.5-1
+  libcdio10-0.81-10
+  libcdio_cdda0-0.81-10
+  libcurl4-7.19.4-1
+  libdiscid0-0.2.2-10
+  libfaad2-2.7-10
+  libfftw3_3-3.2.1-3
+  libFLAC8-1.2.1-1
+  libgamin1_0-0.1.10-10
+  libgcc1-4.3.2-2
+  libglib2.0_0-2.20.3-1
+  libmad0-0.15.1b-10
+  libmodplug0-0.8.7-1
+  libmpcdec5-1.2.6-10
+  libmpg123_0-1.8.1-1
+  libofa0-0.9.3-10
+  libogg0-1.1.3-1
+  libreadline6-5.2.13-11
+  libsamplerate0-0.1.7-10
+  libSDL1.2_0-1.2.13-10
+  libshout3-2.2.2-10
+  libspeex1-1.2rc1-1
+  libsqlite3_0-3.6.11-1
+  libstdc++6-4.3.2-2
+  libvisual0.4_0-0.4.0-10
+  libvorbis0-1.2.0-2
+  libvorbisenc2-1.2.0-2
+  libvorbisfile3-1.2.0-2
+  libwavpack1-4.50.1-10
+  libxml2-2.7.3-10
+  openssl-0.9.8k-2
+  perl-5.10.0-5
+  perl-Glib-1.222-1
+  python-2.5.4-10
+  python-gobject2-2.16.1-10
+  ruby-1.8.7_p72-10
+
+Build requirements:
+(besides corresponding -devel packages)
+  autoconf2.5-2.63-10
+  automake1.10-1.10.2-10
+  binutils-2.19.51-1
+  cygport-0.9.8-1
+  gawk-3.1.6-2
+  gcc4-core-4.3.2-2
+  gcc4-g++-4.3.2-2
+  libtool-2.2.7a-14
+  make-3.81-2
+  pkg-config-0.23b-10
+  sed-4.1.5-2
+  waf-1.5.8.6447-1
+
+Canonical website:
+  http://wiki.xmms2.xmms.se/
+
+Canonical download:
+  http://sourceforge.net/projects/xmms2/files
+
+-------------------------------------------
+
+Build instructions:
+  unpack xmms2-0.6-X-src.tar.bz2
+    if you use setup to install this src package, it will be
+	 unpacked under /usr/src automatically
+  cd /usr/src
+  cygport ./xmms2-0.6-X.cygport all
+
+This will create:
+  /usr/src/libxmmsclient++-devel-0.6-X.tar.bz2
+  /usr/src/libxmmsclient++3-0.6-X.tar.bz2
+  /usr/src/libxmmsclient++-glib-devel-0.6-X.tar.bz2
+  /usr/src/libxmmsclient++-glib1-0.6-X.tar.bz2
+  /usr/src/libxmmsclient-devel-0.6-X.tar.bz2
+  /usr/src/libxmmsclient5-0.6-X.tar.bz2
+  /usr/src/libxmmsclient-glib-devel-0.6-X.tar.bz2
+  /usr/src/libxmmsclient-glib1-0.6-X.tar.bz2
+  /usr/src/perl-Audio-XMMSClient-0.6-X.tar.bz2
+  /usr/src/python-xmmsclient-0.6-X.tar.bz2
+  /usr/src/ruby-xmmsclient-0.6-X.tar.bz2
+  /usr/src/xmms2-0.6-X-src.tar.bz2
+  /usr/src/xmms2-0.6-X.tar.bz2
+  /usr/src/xmms2-daemon-0.6-X.tar.bz2
+  /usr/src/xmms2-devel-0.6-X.tar.bz2
+  /usr/src/xmms2-plugin-*-0.6-X.tar.bz2
+
+-------------------------------------------
+
+Files included in the binary packages:
+
+(xmms2)
+  /usr/bin/nyxmms2.exe
+  /usr/bin/xmms2-et.exe
+  /usr/bin/xmms2-libvisual.exe
+  /usr/bin/xmms2-mlib-updater.exe
+  /usr/bin/xmms2-mlib-updater.exe.manifest
+  /usr/bin/xmms2-ripper.exe
+  /usr/bin/xmms2.exe
+  /usr/share/man/man1/nyxmms2.1.gz
+  /usr/share/man/man1/xmms2-et.1.gz
+  /usr/share/man/man1/xmms2.1.gz
+  /usr/share/pixmaps/xmms2-128.png
+  /usr/share/pixmaps/xmms2-16.png
+  /usr/share/pixmaps/xmms2-32.png
+  /usr/share/pixmaps/xmms2-48.png
+  /usr/share/pixmaps/xmms2-black-on-white.svg
+  /usr/share/pixmaps/xmms2-white-on-black.svg
+  /usr/share/pixmaps/xmms2.svg
+  /usr/share/xmms2/scripts/startup.d/xmms2-et-launcher.sh
+  /usr/share/xmms2/scripts/startup.d/xmms2-mlib-updater.sh
+
+(xmms2-daemon)
+  /usr/bin/cygxmms2core.dll
+  /usr/bin/xmms2-launcher.exe
+  /usr/bin/xmms2d.exe
+  /usr/lib/xmms2/cygxmms_apefile.dll
+  /usr/lib/xmms2/cygxmms_asf.dll
+  /usr/lib/xmms2/cygxmms_asx.dll
+  /usr/lib/xmms2/cygxmms_cue.dll
+  /usr/lib/xmms2/cygxmms_diskwrite.dll
+  /usr/lib/xmms2/cygxmms_equalizer.dll
+  /usr/lib/xmms2/cygxmms_file.dll
+  /usr/lib/xmms2/cygxmms_flv.dll
+  /usr/lib/xmms2/cygxmms_gme.dll
+  /usr/lib/xmms2/cygxmms_html.dll
+  /usr/lib/xmms2/cygxmms_icymetaint.dll
+  /usr/lib/xmms2/cygxmms_id3v2.dll
+  /usr/lib/xmms2/cygxmms_karaoke.dll
+  /usr/lib/xmms2/cygxmms_m3u.dll
+  /usr/lib/xmms2/cygxmms_mp4.dll
+  /usr/lib/xmms2/cygxmms_normalize.dll
+  /usr/lib/xmms2/cygxmms_null.dll
+  /usr/lib/xmms2/cygxmms_nulstripper.dll
+  /usr/lib/xmms2/cygxmms_pls.dll
+  /usr/lib/xmms2/cygxmms_replaygain.dll
+  /usr/lib/xmms2/cygxmms_rss.dll
+  /usr/lib/xmms2/cygxmms_tta.dll
+  /usr/lib/xmms2/cygxmms_wave.dll
+  /usr/lib/xmms2/cygxmms_waveout.dll
+  /usr/lib/xmms2/cygxmms_xml.dll
+  /usr/lib/xmms2/cygxmms_xspf.dll
+  /usr/share/doc/xmms2/AUTHORS
+  /usr/share/doc/xmms2/COPYING
+  /usr/share/doc/xmms2/ChangeLog
+  /usr/share/doc/xmms2/README
+  /usr/share/doc/xmms2/TODO
+  /usr/share/man/man1/xmms2-launcher.1.gz
+  /usr/share/man/man1/xmms2d.1.gz
+  /usr/share/xmms2/mind.in.a.box-lament_snipplet.ogg
+
+(xmms2-plugin-*)
+  /usr/lib/xmms2/cygxmms_airplay.dll
+  /usr/lib/xmms2/cygxmms_ao.dll
+  /usr/lib/xmms2/cygxmms_avcodec.dll
+  /usr/lib/xmms2/cygxmms_cdda.dll
+  /usr/lib/xmms2/cygxmms_curl.dll
+  /usr/lib/xmms2/cygxmms_faad.dll
+  /usr/lib/xmms2/cygxmms_flac.dll
+  /usr/lib/xmms2/cygxmms_gvfs.dll
+  /usr/lib/xmms2/cygxmms_ices.dll
+  /usr/lib/xmms2/cygxmms_mad.dll
+  /usr/lib/xmms2/cygxmms_mms.dll
+  /usr/lib/xmms2/cygxmms_modplug.dll
+  /usr/lib/xmms2/cygxmms_mpg123.dll
+  /usr/lib/xmms2/cygxmms_musepack.dll
+  /usr/lib/xmms2/cygxmms_ofa.dll
+  /usr/lib/xmms2/cygxmms_speex.dll
+  /usr/lib/xmms2/cygxmms_vocoder.dll
+  /usr/lib/xmms2/cygxmms_vorbis.dll
+  /usr/lib/xmms2/cygxmms_wavpack.dll
+
+(libxmmsclient5)
+  /usr/bin/cygxmmsclient-5.dll
+
+(libxmmsclient-devel)
+  /usr/include/xmms2/xmmsclient/xmmsclient.h
+  /usr/lib/libxmmsclient.dll.a
+  /usr/lib/pkgconfig/xmms2-client.pc
+
+(libxmmsclient-glib1)
+  /usr/bin/cygxmmsclient-glib-1.dll
+
+(libxmmsclient-glib-devel)
+  /usr/include/xmms2/xmmsclient/xmmsclient-glib.h
+  /usr/lib/libxmmsclient-glib.dll.a
+  /usr/lib/pkgconfig/xmms2-client-glib.pc
+
+(libxmmsclient++3)
+  /usr/bin/cygxmmsclient++-3.dll
+
+(libxmmsclient++-devel)
+  /usr/include/xmms2/xmmsclient/xmmsclient++.h
+  /usr/include/xmms2/xmmsclient/xmmsclient++/bindata.h
+  /usr/include/xmms2/xmmsclient/xmmsclient++/client.h
+  /usr/include/xmms2/xmmsclient/xmmsclient++/coll.h
+  /usr/include/xmms2/xmmsclient/xmmsclient++/collection.h
+  /usr/include/xmms2/xmmsclient/xmmsclient++/config.h
+  /usr/include/xmms2/xmmsclient/xmmsclient++/dict.h
+  /usr/include/xmms2/xmmsclient/xmmsclient++/exceptions.h
+  /usr/include/xmms2/xmmsclient/xmmsclient++/helpers.h
+  /usr/include/xmms2/xmmsclient/xmmsclient++/list.h
+  /usr/include/xmms2/xmmsclient/xmmsclient++/listener.h
+  /usr/include/xmms2/xmmsclient/xmmsclient++/mainloop.h
+  /usr/include/xmms2/xmmsclient/xmmsclient++/medialib.h
+  /usr/include/xmms2/xmmsclient/xmmsclient++/playback.h
+  /usr/include/xmms2/xmmsclient/xmmsclient++/playlist.h
+  /usr/include/xmms2/xmmsclient/xmmsclient++/result.h
+  /usr/include/xmms2/xmmsclient/xmmsclient++/signal.h
+  /usr/include/xmms2/xmmsclient/xmmsclient++/stats.h
+  /usr/include/xmms2/xmmsclient/xmmsclient++/typedefs.h
+  /usr/include/xmms2/xmmsclient/xmmsclient++/xform.h
+  /usr/lib/libxmmsclient++.dll.a
+  /usr/lib/pkgconfig/xmms2-client-cpp.pc
+
+(libxmmsclient++-glib1)
+  /usr/bin/cygxmmsclient++-glib-1.dll
+
+(libxmmsclient++-glib-devel)
+  /usr/include/xmms2/xmmsclient/xmmsclient++-glib.h
+  /usr/lib/libxmmsclient++-glib.dll.a
+  /usr/lib/pkgconfig/xmms2-client-cpp-glib.pc
+
+(perl-Audio-XMMSClient)
+  /usr/lib/perl5/vendor_perl/5.10/i686-cygwin/Audio/XMMSClient.pm
+  /usr/lib/perl5/vendor_perl/5.10/i686-cygwin/Audio/XMMSClient/Collection.pm
+  /usr/lib/perl5/vendor_perl/5.10/i686-cygwin/Audio/XMMSClient/Glib.pm
+  /usr/lib/perl5/vendor_perl/5.10/i686-cygwin/Audio/XMMSClient/Sync.pm
+  /usr/lib/perl5/vendor_perl/5.10/i686-cygwin/auto/Audio/XMMSClient/XMMSClient.dll
+
+(python-xmmsclient)
+  /usr/lib/python2.5/site-packages/xmmsclient/__init__.py
+  /usr/lib/python2.5/site-packages/xmmsclient/__init__.pyc
+  /usr/lib/python2.5/site-packages/xmmsclient/__init__.pyo
+  /usr/lib/python2.5/site-packages/xmmsclient/collections.py
+  /usr/lib/python2.5/site-packages/xmmsclient/collections.pyc
+  /usr/lib/python2.5/site-packages/xmmsclient/collections.pyo
+  /usr/lib/python2.5/site-packages/xmmsclient/consts.py
+  /usr/lib/python2.5/site-packages/xmmsclient/consts.pyc
+  /usr/lib/python2.5/site-packages/xmmsclient/consts.pyo
+  /usr/lib/python2.5/site-packages/xmmsclient/glib.py
+  /usr/lib/python2.5/site-packages/xmmsclient/glib.pyc
+  /usr/lib/python2.5/site-packages/xmmsclient/glib.pyo
+  /usr/lib/python2.5/site-packages/xmmsclient/propdict.py
+  /usr/lib/python2.5/site-packages/xmmsclient/propdict.pyc
+  /usr/lib/python2.5/site-packages/xmmsclient/propdict.pyo
+  /usr/lib/python2.5/site-packages/xmmsclient/qt3.py
+  /usr/lib/python2.5/site-packages/xmmsclient/qt3.pyc
+  /usr/lib/python2.5/site-packages/xmmsclient/qt3.pyo
+  /usr/lib/python2.5/site-packages/xmmsclient/sync.py
+  /usr/lib/python2.5/site-packages/xmmsclient/sync.pyc
+  /usr/lib/python2.5/site-packages/xmmsclient/sync.pyo
+  /usr/lib/python2.5/site-packages/xmmsclient/xmmsapi.dll
+
+(ruby-xmmsclient)
+  /usr/lib/ruby/site_ruby/1.8/i386-cygwin/xmmsclient_ext.so
+  /usr/lib/ruby/site_ruby/1.8/i386-cygwin/xmmsclient_glib.so
+  /usr/lib/ruby/site_ruby/1.8/xmmsclient.rb
+  /usr/lib/ruby/site_ruby/1.8/xmmsclient/async.rb
+  /usr/lib/ruby/site_ruby/1.8/xmmsclient/sync.rb
+
+(xmms2-devel)
+  /usr/include/xmms2/xmms/xmms_bindata.h
+  /usr/include/xmms2/xmms/xmms_config.h
+  /usr/include/xmms2/xmms/xmms_error.h
+  /usr/include/xmms2/xmms/xmms_ipc.h
+  /usr/include/xmms2/xmms/xmms_log.h
+  /usr/include/xmms2/xmms/xmms_medialib.h
+  /usr/include/xmms2/xmms/xmms_object.h
+  /usr/include/xmms2/xmms/xmms_outputplugin.h
+  /usr/include/xmms2/xmms/xmms_plugin.h
+  /usr/include/xmms2/xmms/xmms_sample.h
+  /usr/include/xmms2/xmms/xmms_streamtype.h
+  /usr/include/xmms2/xmms/xmms_strfunc.h
+  /usr/include/xmms2/xmms/xmms_util.h
+  /usr/include/xmms2/xmms/xmms_xformplugin.h
+  /usr/include/xmms2/xmmsc/xmmsc_compiler.h
+  /usr/include/xmms2/xmmsc/xmmsc_errorcodes.h
+  /usr/include/xmms2/xmmsc/xmmsc_idnumbers.h
+  /usr/include/xmms2/xmmsc/xmmsc_ipc_msg.h
+  /usr/include/xmms2/xmmsc/xmmsc_ipc_transport.h
+  /usr/include/xmms2/xmmsc/xmmsc_sockets.h
+  /usr/include/xmms2/xmmsc/xmmsc_stdbool.h
+  /usr/include/xmms2/xmmsc/xmmsc_stdint.h
+  /usr/include/xmms2/xmmsc/xmmsc_stringport.h
+  /usr/include/xmms2/xmmsc/xmmsc_strlist.h
+  /usr/include/xmms2/xmmsc/xmmsc_unistd.h
+  /usr/include/xmms2/xmmsc/xmmsc_util.h
+  /usr/include/xmms2/xmmsc/xmmsc_visualization.h
+  /usr/include/xmms2/xmmsc/xmmsv.h
+  /usr/include/xmms2/xmmsc/xmmsv_coll.h
+  /usr/lib/libxmms2core.dll.a
+  /usr/lib/pkgconfig/xmms2-plugin.pc
+
+------------------
+
+Port Notes:
+
+----- version 0.6-1 -----
+Initial release for Cygwin 1.7.
+
+
+Cygwin port maintained by:
+http://sourceware.org/cygwinports/

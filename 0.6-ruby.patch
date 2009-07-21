@@ -1,0 +1,77 @@
+--- origsrc/xmms2-0.6DrMattDestruction/src/clients/lib/ruby/wscript	2009-07-20 00:14:26.533041200 -0500
++++ src/xmms2-0.6DrMattDestruction/src/clients/lib/ruby/wscript	2009-07-20 18:49:13.712421200 -0500
+@@ -15,6 +15,7 @@ def build(bld):
+         rb_result.c
+     """.split()
+     obj.uselib_local = 'xmmsclient'
++    obj.install_path = "${ARCHDIR_ruby}"
+     obj.mac_bundle = True
+ 
+     bld.install_files('${LIBDIR_ruby}', 'xmmsclient.rb')
+@@ -28,6 +29,7 @@ def build(bld):
+     obj.source = ['rb_xmmsclient_glib.c']
+     obj.uselib_local = 'xmmsclient-glib xmmsclient'
+     obj.uselib = 'glib2'
++    obj.install_path = "${ARCHDIR_ruby}"
+     obj.mac_bundle = True
+ 
+     # ecore
+@@ -38,6 +40,7 @@ def build(bld):
+         obj.source = ['rb_xmmsclient_ecore.c']
+         obj.uselib_local = 'xmmsclient-ecore xmmsclient'
+         obj.uselib = 'ecore'
++        obj.install_path = "${ARCHDIR_ruby}"
+         obj.mac_bundle = True
+ 
+ def configure(conf):
+@@ -49,7 +49,7 @@ def configure(conf):
+     if not conf.check_ruby_ext_devel():
+         return False
+ 
+-    conf.check_cc(function_name="rb_protect_inspect", header_name="ruby.h", uselib="ruby")
++    conf.check_cc(function_name="rb_protect_inspect", lib="ruby", header_name="ruby.h", uselib="ruby")
+ 
+     if not os.path.commonprefix([conf.env['ARCHDIR_ruby'], conf.env['PREFIX']]).startswith(conf.env['PREFIX']):
+         warning('default ruby archdir is not under PREFIX. specify path '
+@@ -64,4 +64,4 @@ def configure(conf):
+     return True
+ 
+ def set_options(opt):
+-    opt.tool_options('ruby', os.path.abspath('waftools'))
++    opt.tool_options('ruby', tooldir=os.path.abspath('waftools'))
+--- origsrc/xmms2-0.6DrMattDestruction/waftools/ruby.py	2009-04-21 12:51:11.000000000 -0500
++++ src/xmms2-0.6DrMattDestruction/waftools/ruby.py	2009-07-20 18:53:37.745205500 -0500
+@@ -7,7 +7,7 @@ from TaskGen import taskgen, before, fea
+ from Configure import conf
+ 
+ @taskgen
+-@before('apply_incpaths')
++@before('apply_incpaths', 'apply_type_vars', 'apply_lib_vars')
+ @feature('rubyext')
+ @before('apply_bundle')
+ def init_rubyext(self):
+@@ -74,7 +74,7 @@ def check_ruby_ext_devel(conf):
+ 
+     archdir = Utils.cmd_output(ruby + " -rrbconfig -e 'puts \"%s\" % [].fill(Config::CONFIG[\"archdir\"], 0..1)'").strip()
+     conf.env["CPPPATH_ruby"] = [archdir]
+-    conf.env["LINKFLAGS_ruby"] = '-L%s' % archdir
++    conf.env["LINKFLAGS_ruby"] = ['-L%s' % archdir]
+ 
+     if version >= (1, 9, 0):
+         incpaths = Utils.cmd_output(ruby + " -rrbconfig -e 'puts Config::CONFIG[\"rubyhdrdir\"]'").strip()
+@@ -95,12 +95,12 @@ def check_ruby_ext_devel(conf):
+     if len(flags) > 1 and flags[1] == "ppc":
+         flags = flags[2:]
+ 
+-    conf.env["LINKFLAGS_ruby"] += " " + " ".join(flags)
++    conf.env["LINKFLAGS_ruby"] += flags
+ 
+     ldflags = Utils.cmd_output(ruby + " -rrbconfig -e 'print Config::CONFIG[\"LIBS\"]'").strip()
+-    conf.env["LINKFLAGS_ruby"] += " " + ldflags
++    conf.env["LINKFLAGS_ruby"] += ldflags.split()
+     ldflags = Utils.cmd_output(ruby + " -rrbconfig -e 'print Config::CONFIG[\"LIBRUBYARG_SHARED\"]'").strip()
+-    conf.env["LINKFLAGS_ruby"] += " " + ldflags
++    conf.env["LINKFLAGS_ruby"] += ldflags.split()
+ 
+     cflags = Utils.cmd_output(ruby + " -rrbconfig -e 'print Config::CONFIG[\"CCDLFLAGS\"]'").strip()
+     conf.env["CCFLAGS_ruby"] = cflags

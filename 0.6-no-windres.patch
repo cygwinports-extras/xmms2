@@ -1,0 +1,16 @@
+--- origsrc/xmms2-0.6DrMattDestruction/wscript	2009-04-21 12:51:11.000000000 -0500
++++ src/xmms2-0.6DrMattDestruction/wscript	2009-07-19 23:02:13.455078700 -0500
+@@ -257,11 +257,11 @@ def configure(conf):
+     conf.check_tool('gcc')
+     conf.check_tool('g++')
+ 
+-    try:
++    if Options.platform == 'win32':
+         conf.check_tool('winres')
+         conf.env['WINRCFLAGS'] = '-I' + os.path.abspath('pixmaps')
+         conf.env['xmms_icon'] = True
+-    except Configure.ConfigurationError:
++    else:
+         conf.env['xmms_icon'] = False
+ 
+     if Options.options.target_platform:

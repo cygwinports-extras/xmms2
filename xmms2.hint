@@ -1,0 +1,6 @@
+category: Audio
+requires: libgamin1_0 libgcc1 libglib2.0_0 libreadline6 libvorbis0 libvorbisenc2 libxmmsclient5 libxmmsclient-glib1
+sdesc: "XMMS2 audio player clients"
+ldesc: "XMMS2 is an audio player with a client-server design. It has
+a modular framework and plugin architecture for audio processing,
+visualisation and output."
