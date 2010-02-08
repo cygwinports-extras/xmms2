@@ -1,5 +1,5 @@
 category: Audio
-requires: libgcc1 libglib2.0_0 xmms2-daemon libmpcdec5
+requires: libgcc1 libglib2.0_0 xmms2-daemon libmpcdec7
 external-source: xmms2
 sdesc: "XMMS2 audio player MusePack decoder plugin"
 ldesc: "XMMS2 is an audio player with a client-server design. It has

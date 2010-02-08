@@ -1,5 +1,5 @@
 category: Audio
-requires: libboost1.37 libgcc1 libstdc++6 libxmmsclient5
+requires: libboost1.40 libgcc1 libstdc++6 libxmmsclient5
 external-source: xmms2
 sdesc: "XMMS2 audio player C++ client library (runtime)"
 ldesc: "XMMS2 is an audio player with a client-server design. It has
