@@ -1,5 +1,5 @@
 category: Audio Ruby
-requires: libgcc1 libxmmsclient5 libxmmsclient-glib1 ruby
+requires: libgcc1 libxmmsclient6 libxmmsclient-glib1 ruby ruby-glib2
 external-source: xmms2
 sdesc: "XMMS2 audio player Ruby client bindings"
 ldesc: "XMMS2 is an audio player with a client-server design. It has

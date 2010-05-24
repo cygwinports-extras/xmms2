@@ -1,23 +1,21 @@
 inherit perl python ruby waf
 
-drname="DrMattDestruction"
+drname="DrNo"
 
 HOMEPAGE="http://wiki.xmms2.xmms.se/"
 SRC_URI="mirror://sourceforge/xmms2/${P}${drname}.tar.bz2"
 SRC_DIR="${P}${drname}"
 
 PATCH_URI="
-	0.6-implib.patch
+	0.7-implib.patch
 	0.6-no-windres.patch
-	0.6-perl.patch
-	0.6-ruby.patch
 	0.6-vistest.patch
-	0.6-waf.patch
+	0.7-waf.patch
 "
 
 PKG_NAMES="${PN} ${PN}-daemon ${PN}-devel"
 
-for lv in xmmsclient:5 xmmsclient-glib:1 xmmsclient++:3 xmmsclient++-glib:1
+for lv in xmmsclient:6 xmmsclient-glib:1 xmmsclient++:4 xmmsclient++-glib:1
 do
 	l=${lv%:*}
 	v=${lv##*:}
@@ -44,7 +42,7 @@ perl_Audio_XMMSClient_CONTENTS="${PERL_VENDORARCH#/}"
 python_xmmsclient_CONTENTS="${PYTHON_SITELIB#/}"
 ruby_xmmsclient_CONTENTS="${RUBY_SITELIB#/}"
 
-for p in airplay ao avcodec cdda curl faad flac gvfs ices mad mms \
+for p in airplay ao avcodec cdda curl faad flac gme gvfs ices mad mms \
          modplug mpg123 musepack ofa speex vocoder vorbis wavpack
 do
 	PKG_NAMES+=" ${PN}-plugin-${p}"
@@ -53,7 +51,7 @@ do
 done
 
 xmms2_CONTENTS="--exclude=xmms2-launcher* --exclude=xmms2d*
-                usr/bin/*.exe* usr/share/man/ usr/share/pixmaps/
+                etc/ usr/bin/*.exe* usr/share/icons/ usr/share/man/
                 usr/share/xmms2/scripts/"
 xmms2_daemon_CONTENTS+=" usr/bin/cygxmms2core.dll
                          usr/bin/xmms2-launcher.exe usr/bin/xmms2d.exe
@@ -78,7 +76,7 @@ src_compile() {
 	waf_compile \
 		--with-perl-archdir=${PERL_VENDORARCH} \
 		--without-plugins=alsa,coreaudio,daap,jack,mac,nms,oss,pulse,samba,sid \
-		--with-optionals=cli,nycli,launcher,et,medialib-updater,vistest,xmmsclient++,xmmsclient++-glib,perl,python,ruby,pixmaps
+		--with-optionals=cli,nycli,launcher,et,medialib-updater,vistest,xmmsclient++,xmmsclient++-glib,perl,python,ruby
 		# ,xmmsclient-ecore
 }
 
@@ -87,4 +85,6 @@ src_install() {
 	waf_install
 
 	python_optimize
+
+	dohicolor xmms2 ${S}/pixmaps/xmms2.svg ${S}/pixmaps/*.png
 }

@@ -1,5 +1,5 @@
 category: Audio
-requires: libxmmsclient5
+requires: libxmmsclient6
 external-source: xmms2
 sdesc: "XMMS2 audio player C client library (development)"
 ldesc: "XMMS2 is an audio player with a client-server design. It has

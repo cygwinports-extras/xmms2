@@ -1,0 +1,25 @@
+--- origsrc/xmms2-0.7DrNo/src/xmms/wscript	2010-02-19 11:43:54.000000000 -0600
++++ src/xmms2-0.7DrNo/src/xmms/wscript	2010-05-24 10:21:16.640375800 -0500
+@@ -117,10 +117,12 @@ def configure(conf):
+         conf.env['LINKFLAGS'] += ['-framework', 'CoreFoundation']
+         conf.env['CCDEFINES'] += ['USE_BUNDLES']
+ 
+-    if Options.platform == 'win32':
++    if Options.platform == 'win32' or Options.platform == 'cygwin':
+         conf.env['xmms_shared_library'] = True
++        conf.env.append_value('XMMS_PKGCONF_FILES', ('xmms2-plugin', '-lxmms2core'))
+     else:
+         conf.env['xmms_shared_library'] = False
++        conf.env.append_value('XMMS_PKGCONF_FILES', ('xmms2-plugin', ''))
+ 
+     if Options.platform == 'win32':
+         conf.env['compat_impl'] = 'dummy'
+@@ -136,8 +138,6 @@ def configure(conf):
+     if not conf.env['HAVE_SEMCTL']:
+         warning("Compiling visualization without shm support")
+ 
+-    conf.env.append_value('XMMS_PKGCONF_FILES', ('xmms2-plugin', ''))
+-
+     conf.check_cfg(package='valgrind', uselib_store='valgrind', args='--cflags')
+ 
+     return True
