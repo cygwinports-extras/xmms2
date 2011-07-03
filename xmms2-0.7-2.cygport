@@ -11,6 +11,7 @@ PATCH_URI="
 	0.6-no-windres.patch
 	0.6-vistest.patch
 	0.7-waf.patch
+	0.7-daap-dnssd.patch
 "
 
 PKG_NAMES="${PN} ${PN}-daemon ${PN}-devel"
@@ -42,7 +43,7 @@ perl_Audio_XMMSClient_CONTENTS="${PERL_VENDORARCH#/}"
 python_xmmsclient_CONTENTS="${PYTHON_SITELIB#/}"
 ruby_xmmsclient_CONTENTS="${RUBY_SITELIB#/}"
 
-for p in airplay ao avcodec cdda curl faad flac gme gvfs ices mad mms \
+for p in airplay ao avcodec cdda curl daap faad flac gme gvfs ices mad mms \
          modplug mpg123 musepack ofa speex vocoder vorbis wavpack
 do
 	PKG_NAMES+=" ${PN}-plugin-${p}"
@@ -70,13 +71,13 @@ src_compile() {
 	# wafadmin/ conflicts with our version
 	rm -fr waf wafadmin/
 
-	# daap: avahi
 	# oss: requires /dev/mixer
 	# sid: libsidplay2
 	waf_compile \
 		--with-perl-archdir=${PERL_VENDORARCH} \
-		--without-plugins=alsa,coreaudio,daap,jack,mac,nms,oss,pulse,samba,sid \
-		--with-optionals=cli,nycli,launcher,et,medialib-updater,vistest,xmmsclient++,xmmsclient++-glib,perl,python,ruby
+		--with-default-output-plugin=ao \
+		--without-plugins=alsa,coreaudio,jack,mac,nms,oss,pulse,samba,sid \
+		--with-optionals=cli,nycli,launcher,dns_sd,et,medialib-updater,vistest,xmmsclient++,xmmsclient++-glib,perl,python,ruby
 		# ,xmmsclient-ecore
 }
 
@@ -86,5 +87,11 @@ src_install() {
 
 	python_optimize
 
-	dohicolor xmms2 ${S}/pixmaps/xmms2.svg ${S}/pixmaps/*.png
+	for i in 16 32 48 128
+	do
+		insinto /usr/share/icons/hicolor/${i}x${i}/apps
+		newins ${S}/pixmaps/xmms2-${i}.png xmms2.png
+	done
+	insinto /usr/share/icons/hicolor/scalable/apps
+	doins ${S}/pixmaps/xmms2.svg
 }

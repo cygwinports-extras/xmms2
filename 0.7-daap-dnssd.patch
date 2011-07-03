@@ -1,0 +1,17 @@
+The assumption is that if both Avahi and libdns_sd are present, that the 
+latter is actually avahi-compat-libdns_sd (since only one mDNS provider can
+be running on a system).  Our setup goes against that assumption (Avahi runs
+on top of native Windows mDNSResponder), so for lack of a configure option,
+just force this to use (the real) libdns_sd directly.
+
+--- origsrc/xmms2-0.7DrNo/src/plugins/daap/wscript	2010-02-19 11:43:54.000000000 -0600
++++ src/xmms2-0.7DrNo/src/plugins/daap/wscript	2011-07-03 11:11:27.587072400 -0500
+@@ -9,7 +9,7 @@ def plugin_configure(conf):
+     conf.check_cfg(package="avahi-client", uselib_store="avahiclient", args="--cflags --libs")
+ 
+     # First look for Avahi mdns support
+-    if conf.env["HAVE_AVAHIGLIB"] and conf.env["HAVE_AVAHICLIENT"]:
++    if conf.env["HAVE_AVAHIGLIB"] and conf.env["HAVE_AVAHICLIENT"] and Options.platform != "cygwin":
+         # Avahi found
+         conf.env["XMMS_DAAP_BACKEND"] = "avahi"
+     elif conf.check(header_name="dns_sd.h"):
