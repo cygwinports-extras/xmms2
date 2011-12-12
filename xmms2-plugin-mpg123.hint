@@ -1,5 +1,5 @@
 category: Audio
-requires: libgcc1 libglib2.0_0 xmms2-daemon libmpg123_0
+requires: libglib2.0_0 xmms2-daemon libmpg123_0
 external-source: xmms2
 sdesc: "XMMS2 audio player MP3 decoder plugin"
 ldesc: "XMMS2 is an audio player with a client-server design. It has

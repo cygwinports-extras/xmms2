@@ -1,5 +1,5 @@
 category: Audio
-requires: libgcc1 libglib2.0_0 xmms2-daemon libcdio12 libcdio_cdda0 libdiscid0
+requires: libglib2.0_0 xmms2-daemon libcdio13 libcdio_cdda1 libdiscid0
 external-source: xmms2
 sdesc: "XMMS2 audio player CDDA plugin"
 ldesc: "XMMS2 is an audio player with a client-server design. It has

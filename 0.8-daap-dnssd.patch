@@ -1,0 +1,11 @@
+--- origsrc/xmms2-0.8DrO_o/src/plugins/daap/wscript	2011-10-20 14:26:08.000000000 -0500
++++ src/xmms2-0.8DrO_o/src/plugins/daap/wscript	2011-12-11 22:54:12.822281500 -0600
+@@ -20,7 +20,7 @@ def plugin_configure(conf):
+             args="--cflags --libs", mandatory=False)
+ 
+     # First look for Avahi mdns support
+-    if conf.env.HAVE_AVAHIGLIB and conf.env.HAVE_AVAHICLIENT:
++    if conf.env.HAVE_AVAHIGLIB and conf.env.HAVE_AVAHICLIENT and conf.options.mdns_backend != "dns_sd":
+         conf.env.XMMS_DAAP_BACKEND = "avahi"
+     elif conf.check(header_name="dns_sd.h", mandatory=False):
+         # We might have dnssd support. If we're not on OSX, check for the

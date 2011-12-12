@@ -1,22 +1,21 @@
 inherit perl python ruby waf
 
-drname="DrNo"
+drname="DrO_o"
 
 HOMEPAGE="http://wiki.xmms2.xmms.se/"
 SRC_URI="mirror://sourceforge/xmms2/${P}${drname}.tar.bz2"
 SRC_DIR="${P}${drname}"
 
 PATCH_URI="
-	0.7-implib.patch
-	0.6-no-windres.patch
-	0.6-vistest.patch
-	0.7-waf.patch
-	0.7-daap-dnssd.patch
+	0.8-daap-dnssd.patch
+	0.8-implib.patch
+	0.8-plugindir.patch
+	0.8-waf-perl.patch
 "
 
 PKG_NAMES="${PN} ${PN}-daemon ${PN}-devel"
 
-for lv in xmmsclient:6 xmmsclient-glib:1 xmmsclient++:4 xmmsclient++-glib:1
+for lv in xmmsclient:6 xmmsclient-ecore:1 xmmsclient-glib:1 xmmsclient++:4 xmmsclient++-glib:1
 do
 	l=${lv%:*}
 	v=${lv##*:}
@@ -27,6 +26,9 @@ unset lv l v
 
 libxmmsclient_devel_CONTENTS="usr/include/xmms2/xmmsclient/xmmsclient.h
                               usr/lib/libxmmsclient.* usr/lib/pkgconfig/xmms2-client.pc"
+libxmmsclient_ecore_devel_CONTENTS="usr/include/xmms2/xmmsclient/xmmsclient-ecore.h
+                                    usr/lib/libxmmsclient-ecore.*
+                                    usr/lib/pkgconfig/xmms2-client-ecore.pc"
 libxmmsclient_glib_devel_CONTENTS="usr/include/xmms2/xmmsclient/xmmsclient-glib.h
                                    usr/lib/libxmmsclient-glib.*
                                    usr/lib/pkgconfig/xmms2-client-glib.pc"
@@ -38,13 +40,19 @@ libxmmsclient___glib_devel_CONTENTS="usr/include/xmms2/xmmsclient/xmmsclient++-g
                                      usr/lib/libxmmsclient++-glib.dll.a
                                      usr/lib/pkgconfig/xmms2-client-cpp-glib.pc"
 
-PKG_NAMES+=" perl-Audio-XMMSClient python-xmmsclient ruby-xmmsclient"
-perl_Audio_XMMSClient_CONTENTS="${PERL_VENDORARCH#/}"
-python_xmmsclient_CONTENTS="${PYTHON_SITELIB#/}"
-ruby_xmmsclient_CONTENTS="${RUBY_SITELIB#/}"
+PKG_NAMES+=" perl-Audio-XMMSClient perl-Audio-XMMSClient-Glib
+             python-xmmsclient python-xmmsclient-glib
+             ruby-xmmsclient ruby-xmmsclient_glib" # ruby-xmmsclient_ecore
+perl_Audio_XMMSClient_CONTENTS="--exclude=Glib.* ${PERL_VENDORARCH#/}"
+perl_Audio_XMMSClient_Glib_CONTENTS="${PERL_VENDORARCH#/}/Audio/XMMSClient/Glib.pm"
+python_xmmsclient_CONTENTS="--exclude=glib.py* --exclude=qt3.py* ${PYTHON_SITELIB#/}"
+python_xmmsclient_glib_CONTENTS="${PYTHON_SITELIB#/}/xmmsclient/glib.py*"
+ruby_xmmsclient_CONTENTS="${RUBY_VENDORARCH#/}/xmmsclient_ext.so ${RUBY_VENDORLIB#/}/xmmsclient*"
+ruby_xmmsclient_ecore_CONTENTS="${RUBY_VENDORARCH#/}/xmmsclient_ecore.so"
+ruby_xmmsclient_glib_CONTENTS="${RUBY_VENDORARCH#/}/xmmsclient_glib.so"
 
 for p in airplay ao avcodec cdda curl daap faad flac gme gvfs ices mad mms \
-         modplug mpg123 musepack ofa speex vocoder vorbis wavpack
+         modplug mpg123 musepack ofa pulse sndfile speex vocoder vorbis wavpack
 do
 	PKG_NAMES+=" ${PN}-plugin-${p}"
 	xmms2_daemon_CONTENTS+=" --exclude=cygxmms_${p}.dll"
@@ -52,7 +60,7 @@ do
 done
 
 xmms2_CONTENTS="--exclude=xmms2-launcher* --exclude=xmms2d*
-                etc/ usr/bin/*.exe* usr/share/icons/ usr/share/man/
+                etc/ usr/bin/*.exe* usr/bin/nyxmms2 usr/share/icons/ usr/share/man/
                 usr/share/xmms2/scripts/"
 xmms2_daemon_CONTENTS+=" usr/bin/cygxmms2core.dll
                          usr/bin/xmms2-launcher.exe usr/bin/xmms2d.exe
@@ -62,28 +70,42 @@ xmms2_daemon_CONTENTS+=" usr/bin/cygxmms2core.dll
 xmms2_devel_CONTENTS="usr/include/xmms2/xmms/ usr/include/xmms2/xmmsc/
                       usr/lib/libxmms2core.* usr/lib/pkgconfig/xmms2-plugin.pc"
 PKG_IGNORE="usr/include/xmms2/xmmsclient/xmmsclient-cf.h
-            usr/include/xmms2/xmmsclient/xmmsclient-ecore.h
-            usr/include/xmms2/xmmsclient/xmmsclient-qt.h"
+            usr/include/xmms2/xmmsclient/xmmsclient-qt.h
+            ${PYTHON_SITELIB#/}/xmmsclient/qt3.py*
+            ${ruby_xmmsclient_ecore_CONTENTS}"
+
+CYGPORT_USE_UNSTABLE_API=1
+src_unpack_hook() {
+	# unpack the built-in waf so we can patch it
+	./waf --help &>/dev/null
+}
+
+WAF=./waf
 
 src_compile() {
 	lndirs
 	cd ${B}
-	# wafadmin/ conflicts with our version
-	rm -fr waf wafadmin/
-
 	# oss: requires /dev/mixer
 	# sid: libsidplay2
 	waf_compile \
+		--with-pkgconfigdir=/usr/lib/pkgconfig \
 		--with-perl-archdir=${PERL_VENDORARCH} \
-		--with-default-output-plugin=ao \
-		--without-plugins=alsa,coreaudio,jack,mac,nms,oss,pulse,samba,sid \
-		--with-optionals=cli,nycli,launcher,dns_sd,et,medialib-updater,vistest,xmmsclient++,xmmsclient++-glib,perl,python,ruby
-		# ,xmmsclient-ecore
+		--with-ruby-archdir=${RUBY_VENDORARCH} \
+		--with-ruby-libdir=${RUBY_VENDORLIB} \
+		--with-default-output-plugin=waveout \
+		--with-mdns-backend=dns_sd \
+		--without-plugins=alsa,coreaudio,jack,mac,nms,oss,samba,sid \
+		--with-optionals=nycli,launcher,mdns,medialib-updater,xmmsclient++,xmmsclient++-glib,xmmsclient-ecore,perl,python,ruby
 }
 
 src_install() {
 	cd ${B}
 	waf_install
+
+	# This really should be fixed in waflib/Tools/ccroot.py:apply_implib()
+	pushd ${D}/usr/lib/
+	rm -f libXMMSClient.dll.a libxmmsapi.* libxmmsvalue.* libxmms*_*.dll.a
+	popd
 
 	python_optimize
 

@@ -1,0 +1,17 @@
+--- origsrc/xmms2-0.8DrO_o/src/xmms/wscript	2011-10-20 14:26:08.000000000 -0500
++++ src/xmms2-0.8DrO_o/src/xmms/wscript	2011-12-11 16:44:03.968861600 -0600
+@@ -225,9 +225,12 @@ def configure(conf):
+         conf.env.append_value('LINKFLAGS', ['-framework', 'CoreFoundation'])
+         conf.env.append_value('DEFINES', 'USE_BUNDLES')
+ 
+-    conf.env.xmms_shared_library = (Options.platform == 'win32')
++    conf.env.xmms_shared_library = (Options.platform == 'win32' or Options.platform == 'cygwin')
+ 
+-    conf.env.XMMS_PKGCONF_FILES.append(('xmms2-plugin', ''))
++    if conf.env.xmms_shared_library:
++        conf.env.XMMS_PKGCONF_FILES.append(('xmms2-plugin', '-lxmms2core'))
++    else:
++        conf.env.XMMS_PKGCONF_FILES.append(('xmms2-plugin', ''))
+ 
+     conf.check_cfg(package='valgrind', uselib_store='valgrind', args='--cflags',
+                    mandatory=False)

@@ -1,0 +1,12 @@
+--- origsrc/xmms2-0.8DrO_o/src/include/xmms/wscript	2011-10-20 14:26:08.000000000 -0500
++++ src/xmms2-0.8DrO_o/src/include/xmms/wscript	2011-12-11 20:31:10.192383200 -0600
+@@ -31,6 +31,9 @@ def configure(conf):
+     if Options.platform == 'win32':
+         # The plugin path in Windows should be relative, not absolute
+         conf.env.PLUGINDIR = 'Plugins/'
++    elif Options.platform == 'cygwin':
++        # waf sets LIBDIR to $PREFIX/bin because DLLs are installed there
++        conf.env.PLUGINDIR = os.path.join(conf.env.PREFIX, 'lib', 'xmms2')     
+     else:
+         conf.env.PLUGINDIR = os.path.join(conf.env.LIBDIR, 'xmms2')
+ 
