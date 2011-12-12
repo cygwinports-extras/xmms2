@@ -24,7 +24,7 @@ do
 done
 unset lv l v
 
-libxmmsclient_devel_CONTENTS="usr/include/xmms2/xmmsclient/xmmsclient.h
+libxmmsclient_devel_CONTENTS="usr/include/xmms2/xmmsc/ usr/include/xmms2/xmmsclient/xmmsclient.h
                               usr/lib/libxmmsclient.* usr/lib/pkgconfig/xmms2-client.pc"
 libxmmsclient_ecore_devel_CONTENTS="usr/include/xmms2/xmmsclient/xmmsclient-ecore.h
                                     usr/lib/libxmmsclient-ecore.*
@@ -67,8 +67,7 @@ xmms2_daemon_CONTENTS+=" usr/bin/cygxmms2core.dll
                          usr/lib/xmms2/ usr/share/doc/
                          usr/share/man/man1/xmms2-launcher.*
                          usr/share/man/man1/xmms2d.* usr/share/xmms2/*.ogg"
-xmms2_devel_CONTENTS="usr/include/xmms2/xmms/ usr/include/xmms2/xmmsc/
-                      usr/lib/libxmms2core.* usr/lib/pkgconfig/xmms2-plugin.pc"
+xmms2_devel_CONTENTS="usr/include/xmms2/xmms/ usr/lib/libxmms2core.* usr/lib/pkgconfig/xmms2-plugin.pc"
 PKG_IGNORE="usr/include/xmms2/xmmsclient/xmmsclient-cf.h
             usr/include/xmms2/xmmsclient/xmmsclient-qt.h
             ${PYTHON_SITELIB#/}/xmmsclient/qt3.py*

@@ -1,5 +1,5 @@
 category: Audio
-requires: libglib2.0-devel xmms2-daemon
+requires: libglib2.0-devel xmms2-daemon libxmmsclient-devel
 external-source: xmms2
 sdesc: "XMMS2 audio player plugin development"
 ldesc: "XMMS2 is an audio player with a client-server design. It has
