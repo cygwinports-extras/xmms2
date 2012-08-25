@@ -2,6 +2,11 @@ inherit perl python ruby waf
 
 drname="DrO_o"
 
+CATEGORY="Audio"
+SUMMARY="XMMS2 audio player"
+DESCRIPTION="XMMS2 is an audio player with a client-server design. It has
+a modular framework and plugin architecture for audio processing,
+visualisation and output."
 HOMEPAGE="http://wiki.xmms2.xmms.se/"
 SRC_URI="mirror://sourceforge/xmms2/${P}${drname}.tar.bz2"
 SRC_DIR="${P}${drname}"
@@ -13,29 +18,37 @@ PATCH_URI="
 	0.8-waf-perl.patch
 "
 
-PKG_NAMES="${PN} ${PN}-daemon ${PN}-devel"
-
-for lv in xmmsclient:6 xmmsclient-ecore:1 xmmsclient-glib:1 xmmsclient++:4 xmmsclient++-glib:1
-do
-	l=${lv%:*}
-	v=${lv##*:}
-	PKG_NAMES+=" lib${l}${v} lib${l}-devel"
-	declare lib${l//[+-]/_}${v}_CONTENTS="usr/bin/cyg${l}-${v}.dll"
-done
-unset lv l v
-
+PKG_NAMES="${PN} ${PN}-daemon ${PN}-devel libxmmsclient6 libxmmsclient-devel
+           libxmmsclient++4 libxmmsclient++-devel
+           libxmmsclient-ecore1 libxmmsclient-ecore-devel
+           libxmmsclient-glib1 libxmmsclient-glib-devel
+           libxmmsclient++-glib1 libxmmsclient++-glib-devel"
+libxmmsclient6_SUMMARY="${SUMMARY} (C client runtime)"
+libxmmsclient6_REQUIRES="xmms2-daemon"
+libxmmsclient6_CONTENTS="usr/bin/cygxmmsclient-6.dll"
+libxmmsclient_devel_SUMMARY="${SUMMARY} (C client development)"
 libxmmsclient_devel_CONTENTS="usr/include/xmms2/xmmsc/ usr/include/xmms2/xmmsclient/xmmsclient.h
                               usr/lib/libxmmsclient.* usr/lib/pkgconfig/xmms2-client.pc"
+libxmmsclient_ecore1_SUMMARY="${SUMMARY} (ECore client runtime)"
+libxmmsclient_ecore1_CONTENTS="usr/bin/cygxmmsclient-ecore-1.dll"
+libxmmsclient_ecore_devel_SUMMARY="${SUMMARY} (ECore client development)"
 libxmmsclient_ecore_devel_CONTENTS="usr/include/xmms2/xmmsclient/xmmsclient-ecore.h
                                     usr/lib/libxmmsclient-ecore.*
                                     usr/lib/pkgconfig/xmms2-client-ecore.pc"
+libxmmsclient_glib1_SUMMARY="${SUMMARY} (GLib C client runtime)"
+libxmmsclient_glib1_CONTENTS="usr/bin/cygxmmsclient-glib-1.dll"
+libxmmsclient_glib_devel_SUMMARY="${SUMMARY} (GLib C client development)"
 libxmmsclient_glib_devel_CONTENTS="usr/include/xmms2/xmmsclient/xmmsclient-glib.h
                                    usr/lib/libxmmsclient-glib.*
                                    usr/lib/pkgconfig/xmms2-client-glib.pc"
+libxmmsclient__4_CONTENTS="usr/bin/cygxmmsclient++-4.dll"
 libxmmsclient___devel_CONTENTS="usr/include/xmms2/xmmsclient/xmmsclient++.h
                                 usr/include/xmms2/xmmsclient/xmmsclient++/
                                 usr/lib/libxmmsclient++.dll.a
                                 usr/lib/pkgconfig/xmms2-client-cpp.pc"
+libxmmsclient___glib1_SUMMARY="${SUMMARY} (GLib C++ client runtime)"
+libxmmsclient___glib1_CONTENTS="usr/bin/cygxmmsclient++-glib-1.dll"
+libxmmsclient___glib_devel_SUMMARY="${SUMMARY} (GLib C++ client development)"
 libxmmsclient___glib_devel_CONTENTS="usr/include/xmms2/xmmsclient/xmmsclient++-glib.h
                                      usr/lib/libxmmsclient++-glib.dll.a
                                      usr/lib/pkgconfig/xmms2-client-cpp-glib.pc"
@@ -43,12 +56,19 @@ libxmmsclient___glib_devel_CONTENTS="usr/include/xmms2/xmmsclient/xmmsclient++-g
 PKG_NAMES+=" perl-Audio-XMMSClient perl-Audio-XMMSClient-Glib
              python-xmmsclient python-xmmsclient-glib
              ruby-xmmsclient ruby-xmmsclient_glib" # ruby-xmmsclient_ecore
+perl_Audio_XMMSClient_SUMMARY="${SUMMARY} (Perl client bindings)"
 perl_Audio_XMMSClient_CONTENTS="--exclude=Glib.* ${PERL_VENDORARCH#/}"
+perl_Audio_XMMSClient_Glib_SUMMARY="${SUMMARY} (Perl/GLib client bindings)"
 perl_Audio_XMMSClient_Glib_CONTENTS="${PERL_VENDORARCH#/}/Audio/XMMSClient/Glib.pm"
+python_xmmsclient_SUMMARY="${SUMMARY} (Python client bindings)"
 python_xmmsclient_CONTENTS="--exclude=glib.py* --exclude=qt3.py* ${PYTHON_SITELIB#/}"
+python_xmmsclient_glib_SUMMARY="${SUMMARY} (PyGObject client bindings)"
 python_xmmsclient_glib_CONTENTS="${PYTHON_SITELIB#/}/xmmsclient/glib.py*"
+ruby_xmmsclient_SUMMARY="${SUMMARY} (Ruby client bindings)"
 ruby_xmmsclient_CONTENTS="${RUBY_VENDORARCH#/}/xmmsclient_ext.so ${RUBY_VENDORLIB#/}/xmmsclient*"
+ruby_xmmsclient_ecore_SUMMARY="${SUMMARY} (Ruby/ECore client bindings)"
 ruby_xmmsclient_ecore_CONTENTS="${RUBY_VENDORARCH#/}/xmmsclient_ecore.so"
+ruby_xmmsclient_glib_SUMMARY="${SUMMARY} (Ruby/GLib client bindings)"
 ruby_xmmsclient_glib_CONTENTS="${RUBY_VENDORARCH#/}/xmmsclient_glib.so"
 
 for p in airplay ao avcodec cdda curl daap faad flac gme gvfs ices mad mms \
@@ -56,17 +76,21 @@ for p in airplay ao avcodec cdda curl daap faad flac gme gvfs ices mad mms \
 do
 	PKG_NAMES+=" ${PN}-plugin-${p}"
 	xmms2_daemon_CONTENTS+=" --exclude=cygxmms_${p}.dll"
+	declare xmms2_plugin_${p}_SUMMARY="${SUMMARY} (${p} plugin)"
 	declare xmms2_plugin_${p}_CONTENTS="usr/lib/xmms2/cygxmms_${p}.dll"
 done
 
+xmms2_SUMMARY="${SUMMARY} clients"
 xmms2_CONTENTS="--exclude=xmms2-launcher* --exclude=xmms2d*
                 etc/ usr/bin/*.exe* usr/bin/nyxmms2 usr/share/icons/ usr/share/man/
                 usr/share/xmms2/scripts/"
+xmms2_daemon_SUMMARY="${SUMMARY} daemon"
 xmms2_daemon_CONTENTS+=" usr/bin/cygxmms2core.dll
                          usr/bin/xmms2-launcher.exe usr/bin/xmms2d.exe
                          usr/lib/xmms2/ usr/share/doc/
                          usr/share/man/man1/xmms2-launcher.*
                          usr/share/man/man1/xmms2d.* usr/share/xmms2/*.ogg"
+xmms2_devel_SUMMARY="${SUMMARY} (plugin development)"
 xmms2_devel_CONTENTS="usr/include/xmms2/xmms/ usr/lib/libxmms2core.* usr/lib/pkgconfig/xmms2-plugin.pc"
 PKG_IGNORE="usr/include/xmms2/xmmsclient/xmmsclient-cf.h
             usr/include/xmms2/xmmsclient/xmmsclient-qt.h

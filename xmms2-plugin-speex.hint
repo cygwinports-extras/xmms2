@@ -1,7 +1,0 @@
-category: Audio
-requires: libglib2.0_0 xmms2-daemon libogg0 libspeex1
-external-source: xmms2
-sdesc: "XMMS2 audio player Speex decoder plugin"
-ldesc: "XMMS2 is an audio player with a client-server design. It has
-a modular framework and plugin architecture for audio processing,
-visualisation and output."
