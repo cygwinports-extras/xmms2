@@ -2,12 +2,15 @@ inherit perl python ruby waf
 
 drname="DrO_o"
 
+NAME="xmms2"
+VERSION=0.8
+RELEASE=6
 CATEGORY="Audio"
 SUMMARY="XMMS2 audio player"
 DESCRIPTION="XMMS2 is an audio player with a client-server design. It has
 a modular framework and plugin architecture for audio processing,
 visualisation and output."
-HOMEPAGE="http://wiki.xmms2.xmms.se/"
+HOMEPAGE="http://xmms2.org/"
 SRC_URI="mirror://sourceforge/xmms2/${P}${drname}.tar.bz2"
 SRC_DIR="${P}${drname}"
 
