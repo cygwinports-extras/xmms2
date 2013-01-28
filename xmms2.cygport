@@ -15,6 +15,7 @@ SRC_URI="mirror://sourceforge/xmms2/${P}${drname}.tar.bz2"
 SRC_DIR="${P}${drname}"
 
 PATCH_URI="
+	http://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo-x86/media-sound/xmms2/files/xmms2-0.8-ffmpeg-0.11.patch
 	0.8-daap-dnssd.patch
 	0.8-implib.patch
 	0.8-plugindir.patch
