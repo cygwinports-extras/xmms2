@@ -1,28 +1,32 @@
+WAF_USE_BUNDLED=1
 inherit perl python ruby waf
 
 drname="DrO_o"
 
 NAME="xmms2"
 VERSION=0.8
-RELEASE=6
+RELEASE=7
 CATEGORY="Audio"
 SUMMARY="XMMS2 audio player"
 DESCRIPTION="XMMS2 is an audio player with a client-server design. It has
 a modular framework and plugin architecture for audio processing,
 visualisation and output."
 HOMEPAGE="http://xmms2.org/"
-SRC_URI="mirror://sourceforge/xmms2/${P}${drname}.tar.bz2"
-SRC_DIR="${P}${drname}"
+SRC_URI="mirror://sourceforge/xmms2/${NAME}-${VERSION}${drname}.tar.bz2"
+SRC_DIR="${NAME}-${VERSION}${drname}"
 
 PATCH_URI="
-	http://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo-x86/media-sound/xmms2/files/xmms2-0.8-ffmpeg-0.11.patch
+	mirror://portage/media-sound/xmms2/files/xmms2-0.8-ffmpeg-0.11.patch
+	mirror://portage/media-sound/xmms2/files/xmms2-0.8-libav-9.patch
+	mirror://portage/media-sound/xmms2/files/xmms2-0.8-libav-9-p2.patch
+	mirror://portage/media-sound/xmms2/files/xmms2-0.8-cython-0.19.1.patch
 	0.8-daap-dnssd.patch
 	0.8-implib.patch
 	0.8-plugindir.patch
 	0.8-waf-perl.patch
 "
 
-PKG_NAMES="${PN} ${PN}-daemon ${PN}-devel libxmmsclient6 libxmmsclient-devel
+PKG_NAMES="${NAME} ${NAME}-daemon ${NAME}-devel libxmmsclient6 libxmmsclient-devel
            libxmmsclient++4 libxmmsclient++-devel
            libxmmsclient-ecore1 libxmmsclient-ecore-devel
            libxmmsclient-glib1 libxmmsclient-glib-devel
@@ -78,10 +82,7 @@ ruby_xmmsclient_glib_CONTENTS="${RUBY_VENDORARCH#/}/xmmsclient_glib.so"
 for p in airplay ao avcodec cdda curl daap faad flac gme gvfs ices mad mms \
          modplug mpg123 musepack ofa pulse sndfile speex vocoder vorbis wavpack
 do
-	PKG_NAMES+=" ${PN}-plugin-${p}"
-	xmms2_daemon_CONTENTS+=" --exclude=cygxmms_${p}.dll"
-	declare xmms2_plugin_${p}_SUMMARY="${SUMMARY} (${p} plugin)"
-	declare xmms2_plugin_${p}_CONTENTS="usr/lib/xmms2/cygxmms_${p}.dll"
+	xmms2_daemon_OBSOLETES+=" xmms2-plugin-${p}"
 done
 
 xmms2_SUMMARY="${SUMMARY} clients"
@@ -106,8 +107,6 @@ src_unpack_hook() {
 	# unpack the built-in waf so we can patch it
 	./waf --help &>/dev/null
 }
-
-WAF=./waf
 
 src_compile() {
 	lndirs
