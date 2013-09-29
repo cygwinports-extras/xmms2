@@ -24,6 +24,7 @@ PATCH_URI="
 	0.8-implib.patch
 	0.8-plugindir.patch
 	0.8-waf-perl.patch
+	0.8-waveout-cygwin64.patch
 "
 
 PKG_NAMES="${NAME} ${NAME}-daemon ${NAME}-devel libxmmsclient6 libxmmsclient-devel

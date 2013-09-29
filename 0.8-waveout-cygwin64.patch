@@ -1,0 +1,24 @@
+--- origsrc/xmms2-0.8DrO_o/src/plugins/waveout/waveout.c	2011-10-20 14:26:08.000000000 -0500
++++ src/xmms2-0.8DrO_o/src/plugins/waveout/waveout.c	2013-09-29 08:34:02.908595700 -0500
+@@ -76,8 +76,8 @@ static gboolean xmms_waveout_volume_get
+ static guint xmms_waveout_buffer_bytes_get (xmms_output_t *output);
+ 
+ static void CALLBACK on_block_done (HWAVEOUT hWaveOut, UINT uMsg,
+-                                    DWORD dwInstance,
+-                                    DWORD dwParam1, DWORD dwParam2);
++                                    DWORD_PTR dwInstance,
++                                    DWORD_PTR dwParam1, DWORD_PTR dwParam2);
+ 
+ 
+ 
+@@ -484,8 +484,8 @@ xmms_waveout_buffer_bytes_get (xmms_outp
+ 
+ 
+ static void CALLBACK
+-on_block_done (HWAVEOUT hWaveOut,UINT uMsg,DWORD dwInstance,
+-               DWORD dwParam1,DWORD dwParam2)
++on_block_done (HWAVEOUT hWaveOut,UINT uMsg,DWORD_PTR dwInstance,
++               DWORD_PTR dwParam1,DWORD_PTR dwParam2)
+ {
+ 	xmms_waveout_data_t *data = (xmms_waveout_data_t *) dwInstance;
+ 
