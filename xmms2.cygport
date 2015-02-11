@@ -29,7 +29,6 @@ PATCH_URI="
 
 PKG_NAMES="${NAME} ${NAME}-daemon ${NAME}-devel libxmmsclient6 libxmmsclient-devel
            libxmmsclient++4 libxmmsclient++-devel
-           libxmmsclient-ecore1 libxmmsclient-ecore-devel
            libxmmsclient-glib1 libxmmsclient-glib-devel
            libxmmsclient++-glib1 libxmmsclient++-glib-devel"
 libxmmsclient6_SUMMARY="${SUMMARY} (C client runtime)"
@@ -122,7 +121,7 @@ src_compile() {
 		--with-default-output-plugin=waveout \
 		--with-mdns-backend=dns_sd \
 		--without-plugins=alsa,coreaudio,jack,mac,nms,oss,samba,sid \
-		--with-optionals=nycli,launcher,mdns,medialib-updater,xmmsclient++,xmmsclient++-glib,xmmsclient-ecore,perl,python,ruby
+		--with-optionals=nycli,launcher,mdns,medialib-updater,xmmsclient++,xmmsclient++-glib,perl,python,ruby
 }
 
 src_install() {
