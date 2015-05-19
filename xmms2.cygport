@@ -5,7 +5,7 @@ drname="DrO_o"
 
 NAME="xmms2"
 VERSION=0.8
-RELEASE=8
+RELEASE=9
 CATEGORY="Audio"
 SUMMARY="XMMS2 audio player"
 DESCRIPTION="XMMS2 is an audio player with a client-server design. It has
@@ -20,6 +20,8 @@ PATCH_URI="
 	mirror://portage/media-sound/xmms2/files/xmms2-0.8-libav-9.patch
 	mirror://portage/media-sound/xmms2/files/xmms2-0.8-libav-9-p2.patch
 	mirror://portage/media-sound/xmms2/files/xmms2-0.8-cython-0.19.1.patch
+	mirror://portage/media-sound/xmms2/files/xmms2-0.8-memset.patch
+	mirror://portage/media-sound/xmms2/files/xmms2-0.8-ffmpeg2.patch
 	0.8-daap-dnssd.patch
 	0.8-implib.patch
 	0.8-plugindir.patch
