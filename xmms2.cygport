@@ -5,7 +5,7 @@ drname="DrO_o"
 
 NAME="xmms2"
 VERSION=0.8
-RELEASE=9
+RELEASE=10
 CATEGORY="Audio"
 SUMMARY="XMMS2 audio player"
 DESCRIPTION="XMMS2 is an audio player with a client-server design. It has
@@ -26,6 +26,7 @@ PATCH_URI="
 	0.8-implib.patch
 	0.8-plugindir.patch
 	0.8-waf-perl.patch
+	0.8-waf-ruby2.patch
 	0.8-waveout-cygwin64.patch
 "
 

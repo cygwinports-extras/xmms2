@@ -1,0 +1,18 @@
+--- origsrc/xmms2-0.8DrO_o/.waf-1.6.7-b271784c448ab906d5606267fb7f92c0/waflib/Tools/ruby.py	2015-05-20 17:50:49.849335300 -0500
++++ src/xmms2-0.8DrO_o/.waf-1.6.7-b271784c448ab906d5606267fb7f92c0/waflib/Tools/ruby.py	2015-05-20 18:10:35.397880900 -0500
+@@ -45,7 +45,7 @@ def check_ruby_ext_devel(self):
+ 	def read_out(cmd):
+ 		return Utils.to_list(self.cmd_and_log([self.env.RUBY,'-rrbconfig','-e',cmd]))
+ 	def read_config(key):
+-		return read_out('puts Config::CONFIG[%r]'%key)
++		return read_out('puts RbConfig::CONFIG[%r]'%key)
+ 	ruby=self.env['RUBY']
+ 	archdir=read_config('archdir')
+ 	cpppath=archdir
+@@ -85,4 +85,4 @@ before_method('apply_incpaths','apply_li
+ feature('rubyext')(apply_ruby_so_name)
+ before_method('apply_link','propagate_uselib')(apply_ruby_so_name)
+ conf(check_ruby_version)
+-conf(check_ruby_ext_devel)
+\ No newline at end of file
++conf(check_ruby_ext_devel)
