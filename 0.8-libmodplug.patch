@@ -1,0 +1,11 @@
+--- origsrc/xmms2-0.8DrO_o/src/plugins/modplug/modplug.c	2011-10-20 14:26:08.000000000 -0500
++++ src/xmms2-0.8DrO_o/src/plugins/modplug/modplug.c	2015-06-28 21:10:57.828383500 -0500
+@@ -9,7 +9,7 @@
+ #include "xmms/xmms_sample.h"
+ #include "xmms/xmms_medialib.h"
+ #include "xmms/xmms_log.h"
+-#include <modplug.h>
++#include <libmodplug/modplug.h>
+ 
+ #include <glib.h>
+ #include <string.h>
